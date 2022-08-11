@@ -30,7 +30,7 @@ public class UserDaoService {
 			if (u.getId() == id)
 				return u;
 		}
-		return new Users("not found", null, null);
+		return null;
 	}
 
 	public Users saveUsers(Users u) {
