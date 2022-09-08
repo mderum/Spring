@@ -2,6 +2,9 @@ package com.hmv.resttest.users;
 
 import java.util.Date;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+
 public class Users {
 
 	public Users(String name, Integer id, Date dob) {
@@ -10,6 +13,8 @@ public class Users {
 		this.id = id;
 		this.dob = dob;
 	}
+	
+	@Size(min=3 , message=" atleast 2 char required in name")
 	private String name;
 	private Integer id;
 	private Date dob;

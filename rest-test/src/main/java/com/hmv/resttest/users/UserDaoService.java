@@ -2,6 +2,7 @@ package com.hmv.resttest.users;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -32,6 +33,22 @@ public class UserDaoService {
 		}
 		return null;
 	}
+	
+	
+	
+	public Users deleteOne(int id) {
+
+		for (Iterator<Users> iterator = userlist.iterator(); iterator.hasNext();) {
+			Users u = iterator.next();
+			
+			if (u.getId() == id)
+				{iterator.remove();
+				return u;}
+		}
+		return null;
+	}
+	
+	
 
 	public Users saveUsers(Users u) {
 		if (u.getId() == null) {
