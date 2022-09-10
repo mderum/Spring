@@ -2,8 +2,10 @@ package com.hmv.resttest.Users;
 
 import java.time.LocalDate;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -31,4 +33,13 @@ public class CustomErrorHandler extends ResponseEntityExceptionHandler {
 	}
 	
 
+	@Override
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest wr) {
+		// TODO Auto-generated method stub
+		return new ResponseEntity(
+				new ErrorDetailks(ex.getAllErrors().toString(), 
+						wr.getDescription(false), LocalDate.now()),
+				HttpStatus.BAD_REQUEST);
+	}
 }
