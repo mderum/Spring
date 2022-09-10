@@ -1,70 +1,40 @@
-package com.hmv.resttest.users;
+package com.hmv.resttest.Users;
 
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserDaoService {
 
-	private static List<Users> userlist = new ArrayList<>();
+	private static List<User> userList = new ArrayList<>();
 
 	static {
 
-		userlist.add(new Users("erum", 1, new Date()));
-		userlist.add(new Users("umam", 2, new Date()));
+		userList.add(new User("Erum", 1, OffsetDateTime.now()));
+		userList.add(new User("John", 2, OffsetDateTime.now()));
+
 	}
-	int count = 2;
+	private  static int count =2;
 
-	public List<Users> findAll() {
+	public void insertUser(User u) {
 
-		return userlist;
-	}
-
-	public Users findOne(int id) {
-
-		for (Users u : userlist) {
-
-			if (u.getId() == id)
-				return u;
-		}
-		return null;
-	}
-	
-	
-	
-	public Users deleteOne(int id) {
-
-		for (Iterator<Users> iterator = userlist.iterator(); iterator.hasNext();) {
-			Users u = iterator.next();
-			
-			if (u.getId() == id)
-				{iterator.remove();
-				return u;}
-		}
-		return null;
-	}
-	
-	
-
-	public Users saveUsers(Users u) {
-		if (u.getId() == null) {
-
-			count++;
-			u.setId(count);
-		}
-		userlist.add(u);
-		return u;
+		u.setId(++count);
+		userList.add(u);
 	}
 
-	public static List<Users> getUserlist() {
-		return userlist;
+	public List<User> findAll() {
+
+		return userList;
 	}
 
-	public static void setUserlist(List<Users> userlist) {
-		UserDaoService.userlist = userlist;
+	public User findById(int id) {
+
+		return userList.stream().filter(p -> p.getId() == id).findFirst().orElse(null);
+
 	}
+
 }
