@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hmv.resttest.JpaUsers.Posts;
 
-@Entity
+@Entity(name = "user_details")
 public class User {
 
 	protected User() {
