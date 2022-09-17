@@ -2,6 +2,8 @@ package com.hmv.resttest.JpaUsers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,13 +16,23 @@ import com.hmv.resttest.Users.User;
 
 @RestController
 public class JpaUserRes {
-
-	public JpaUserRes(UserRepo userRepo) {
+	
+	private UserRepo userRepo ;
+	
+	private PostRepo postRepo; 
+	
+	public JpaUserRes(UserRepo userRepo, PostRepo postRepo) {
 		super();
 		this.userRepo = userRepo;
+		this.postRepo = postRepo;
 	}
 
-	private UserRepo userRepo ;
+
+
+	
+	
+
+
 	
 	@GetMapping("/jpa/user")
 	public List<User> getAll(){
@@ -62,6 +74,29 @@ public class JpaUserRes {
 		return u.getPosts();
 		
 	}
+	
+	
+	@PostMapping("/jpa/user/{id}/post")
+	public List<Posts> getOne( @PathVariable int id  ,@Valid @RequestBody Posts p){
+		
+		User u=  userRepo.findById(id).get();
+		
+		if(null != u) {
+			
+			p.setUser(u);
+			postRepo.save(p);
+		return u.getPosts();
+		}
+		else {
+			
+			
+			return null;
+		}
+		
+		
+		
+	}
+	
 	
 	
 }

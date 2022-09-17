@@ -5,6 +5,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hmv.resttest.Users.User;
@@ -21,6 +22,7 @@ public class Posts {
 	@JsonIgnore
 	private User user;
 	
+	@Size(min=2)
 	private	String desc;
 
 	public int getId() {
